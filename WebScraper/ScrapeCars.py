@@ -11,9 +11,13 @@ def scrapeCars(website, make):
         html_text = requests.get(f'https://www.{website}/cars-for-sale/new-cars/{make}').text
         soup = BeautifulSoup(html_text, 'lxml')
         print('soup has been processed')
-        names = soup.find('h2',class_='text-bold text-size-400 text-size-sm-500 link-unstyled').text
-        for name in names:
-            print(name)
+        vehicles = {}
+        names = soup.find_all('h2',class_='text-bold text-size-400 text-size-sm-500 link-unstyled')
+        prices = soup.find_all('span', class_='first-price')
+        for i in range(len(names)):
+            vehicles[names[i]] = prices[i]
+        for name, price in vehicles.items():
+            print(f'{name.text} for ${price.text}')
 
 
 def main():
