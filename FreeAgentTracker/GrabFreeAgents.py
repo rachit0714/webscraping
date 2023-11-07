@@ -5,8 +5,24 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
+from Player import *
 import time
 import pandas as pd
+
+def GrabAgents(browser):
+    p = Player()
+    players = []
+
+    team_table_class = "teams"
+    try:
+        WebDriverWait(browser, timeout=20).until(EC.presence_of_element_located((By.XPATH, f"//div[@class={team_table_class}]")))
+        players_grid = browser.find_element(By.XPATH, f"//div[@class={team_table_class}]")
+    except:
+        return -1
+    else:
+        return players_grid
+
+
 
 def main():
     options = webdriver.ChromeOptions()
@@ -15,8 +31,10 @@ def main():
     browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     
     browser.get('http://spotrac.com/mlb/free-agents')
-    
-    WebDriverWait(browser,timeout=20).until(EC.presence_of_element_located((By.XPATH,'//div[@class="mc-closeModal"]')))
+
+    close_button = "mc-closeModal"
+
+    WebDriverWait(browser,timeout=20).until(EC.presence_of_element_located((By.XPATH,f'//div[@class={close_button}]')))
     browser.find_element(By.XPATH, '//div[@class="mc-closeModal"]').click()
 
     time.sleep(5)

@@ -8,6 +8,17 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 import pandas as pd
 
+def GrabAgents(browser, position):
+    player = "N/A"
+    players = []
+
+    if player != "N/A":
+        players.append(player)
+    
+    return players
+
+
+
 def main():
     options = webdriver.ChromeOptions()
     options.add_experimental_option('excludeSwitches', ['enable-logging']) # Removes CSRI error message
@@ -17,7 +28,7 @@ def main():
     browser.get('http://spotrac.com/mlb/free-agents')
     
     WebDriverWait(browser,timeout=20).until(EC.presence_of_element_located((By.XPATH,'//div[@class="mc-closeModal"]')))
-    browser.find_element(By.XPATH, '//div[@class="mc-closeModal"]')
+    browser.find_element(By.XPATH, '//div[@class="mc-closeModal"]').click()
 
     time.sleep(5)
 

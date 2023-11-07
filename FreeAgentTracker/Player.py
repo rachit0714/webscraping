@@ -1,0 +1,31 @@
+class Player():
+    def __init__(self, name, age, position, hand, salary, team):
+        self.name = name
+        self.age = age
+        self.position = position
+        self.bats = hand[0]
+        self.throws = hand[1]
+        self.salary = salary
+        self.team = team
+
+    def general_position(self):
+        if self.position in ["C", "1B", "2B", "3B", "SS"]:
+            return "infielder"
+        elif self.position in ["LF", "RF", "OF"]:
+            return "outfielder"
+        elif self.position == "SP":
+            return "starting pitcher"
+        elif self.position == "RP":
+            return "relief pitcher"
+        elif self.position == "DH":
+            return "designated hitter"
+        
+    def is_signed(self):
+        return self.team != "N/A"
+
+    def __str__(self):
+        if self.is_signed():
+            return f"{self.name} is the {self.position} for the {self.team} with an AAV of {self.salary}."
+        else:
+            return f"{self.name} is a free agent {self.position} and is expected to have an AAV of {self.salary}"
+        
