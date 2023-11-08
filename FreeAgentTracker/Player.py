@@ -1,11 +1,14 @@
 class Player():
-    def __init__(self, name, age, position, hand, salary, team):
+    def __init__(self, name="N/A", age="N/A", position="DH", prev_salary="- ", expected_salary="- ", team="N/A", hand=["R","R"]):
         self.name = name
         self.age = age
         self.position = position
         self.bats = hand[0]
         self.throws = hand[1]
-        self.salary = salary
+        if expected_salary != '- ':
+            self.salary = expected_salary
+        else:
+            self.salary = prev_salary
         self.team = team
 
     def general_position(self):
@@ -21,11 +24,11 @@ class Player():
             return "designated hitter"
         
     def is_signed(self):
-        return self.team != "N/A"
+        return self.team != "-"
 
     def __str__(self):
         if self.is_signed():
-            return f"{self.name} is the {self.position} for the {self.team} with an AAV of {self.salary}."
+            return f"{self.name} is a {self.position} for the {self.team} with an AAV of {self.salary}."
         else:
             return f"{self.name} is a free agent {self.position} and is expected to have an AAV of {self.salary}"
         
